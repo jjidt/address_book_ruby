@@ -1,6 +1,63 @@
 require './lib/contact'
 
 system 'clear'
+
+def contact_menu
+  puts 'What is the name of the user?'
+  new_name = gets.chomp
+  puts "What are the phone numbers for #{new_name} ?"
+  new_phone = gets.chomp.split(",")
+  puts "What is the email address of #{new_name}?"
+  new_email = gets.chomp
+  puts "What is the mailing address of #{new_name}?"
+  new_mail = gets.chomp
+  new_contact = Contact.new(new_name)
+  new_contact.add_numbers(new_phone)
+  new_contact.add_email(new_email)
+  new_contact.add_mailing(new_mail)
+  system 'clear'
+  main_menu
+end
+
+def contact_edit
+  system 'clear'
+  Contact.all.each do |key,value|
+    puts "#{key} \n"
+  end
+  puts 'which contact would you like to access?'
+  inputted_contact = gets.chomp
+  if Contact.all[inputted_contact]
+    system 'clear'
+    current_contact = Contact.all[inputted_contact]
+    puts "#{current_contact.name} \n ---------- \n phone: #{current_contact.numbers} \n email: #{current_contact.email} \n address: #{current_contact.mailing}"
+    puts "\nwhat would you like to do?\n\n enter M to return to main menu\n enter P to alter phone numbers\n"
+    user_types = gets.chomp.downcase
+    if user_types == 'm'
+      system 'clear'
+      main_menu
+    elsif user_types == 'p'
+      current_contact.numbers.each_with_index do |element, index|
+        puts "#{index}:  #{element}"
+      end
+      puts " enter A to add number \n enter D to delete number \n enter C to go back to contacts"
+      contact_choice = gets.chomp.downcase
+      if contact_choice == 'a'
+        puts "What number would you like to add?"
+        input_number = gets.chomp.downcase
+        current_contact.numbers.push(input_number)
+        contact_edit
+      elsif contact_choice == 'd'
+        puts "What number would you like to delete?"
+        delete_number = gets.chomp.to_i
+        current_contact.numbers.delete_at(delete_number)
+        contact_edit
+      end
+    end
+  else
+    contact_edit
+  end
+end
+
 def main_menu
   puts "\n"
   puts "******************CONTACT LIST********************\n"
@@ -8,25 +65,9 @@ def main_menu
   \n enter C to access contact list\n"
   main_choice = gets.chomp.downcase
   if main_choice == 'n'
-    puts 'What is the name of the user?'
-    new_name = gets.chomp
-    puts "What is the phone number of #{new_name} ?"
-    new_phone = gets.chomp
-    puts "What is the email address of #{new_name}?"
-    new_email = gets.chomp
-    puts "What is the mailing address of #{new_name}?"
-    new_mail = gets. chomp
-    new_contact = Contact.new(new_name)
-    new_contact.add_number(new_phone)
-    new_contact.add_email(new_email)
-    new_contact.add_mailing(new_mail)
-    system 'clear'
-    main_menu
+    contact_menu
   elsif main_choice == 'c'
-    system 'clear'
-    Contact.all.each do |key,value|
-      puts "#{key} \n---------- \n phone: #{value.number} \n email: #{value.email} \n address: #{value.mailing}"
-    end
+    contact_edit
   else
     system 'clear'
     main_menu

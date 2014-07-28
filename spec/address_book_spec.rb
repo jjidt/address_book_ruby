@@ -1,5 +1,6 @@
 require 'contact'
 require 'rspec'
+require 'number'
 
 describe 'Contact' do
   before do
@@ -33,6 +34,12 @@ describe 'Contact' do
     test_contact.mailing.should eq '101 McDonald Street'
   end
 
+  it 'lets you enter and access multiple numbers' do
+    test_contact =Contact.new('Ronald McDonald')
+    test_contact.add_numbers(['1','2','3'])
+    test_contact.numbers.should eq ['1','2','3']
+  end
+
   describe '.names' do
     it 'is empty at first' do
       Contact.names.should eq []
@@ -50,6 +57,17 @@ describe 'Contact' do
       test_contact = Contact.new('Ronald McDonald')
       Contact.all['Ronald McDonald'].should be_an_instance_of Contact
     end
+  end
+end
+
+describe 'Number' do
+  it 'initializes with a number parameter' do
+   test_number = Number.new(4024831968)
+   test_number.should be_an_instance_of Number
+ end
+  it 'intiializes with multiple numbers' do
+    test_number = Number.new(['13245555', '9806789798', '9204717'])
+    test_number.all.should eq ['13245555','9806789798','9204717']
   end
 end
 
