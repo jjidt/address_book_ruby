@@ -3,8 +3,12 @@ class Contact
   def Contact.names
     @@names
   end
+  def Contact.clear
+    @@names = []
+  end
   def initialize (name)
     @name = name
+    @@names << @name
   end
   def name
     @name

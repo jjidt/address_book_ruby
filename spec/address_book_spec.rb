@@ -2,6 +2,9 @@ require 'contact'
 require 'rspec'
 
 describe 'Contact' do
+  before do
+    Contact.clear
+  end
   it 'initializes with a name parameter' do
     test_contact = Contact.new('Ronald McDonald')
     test_contact.should be_an_instance_of Contact
@@ -29,7 +32,12 @@ describe 'Contact' do
     it 'is empty at first' do
       Contact.names.should eq []
     end
-  end
+    it 'automatically puts new names into class name list' do
 
+      test_contact = Contact.new('Ronald McDonald')
+      test_contact2 = Contact.new('Golden Arches')
+      Contact.names.should eq ['Ronald McDonald', 'Golden Arches']
+    end
+  end
 end
 
