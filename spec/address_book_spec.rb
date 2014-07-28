@@ -32,11 +32,18 @@ describe 'Contact' do
     it 'is empty at first' do
       Contact.names.should eq []
     end
-    it 'automatically puts new names into class name list' do
 
+    it 'automatically puts new names into class name list' do
       test_contact = Contact.new('Ronald McDonald')
       test_contact2 = Contact.new('Golden Arches')
       Contact.names.should eq ['Ronald McDonald', 'Golden Arches']
+    end
+  end
+
+  describe '.all' do
+    it 'is empty at first' do
+      test_contact = Contact.new('Ronald McDonald')
+      Contact.all['Ronald McDonald'].should be_an_instance_of Contact
     end
   end
 end
