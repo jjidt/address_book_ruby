@@ -40,6 +40,18 @@ describe 'Contact' do
     test_contact.numbers.should eq ['1','2','3']
   end
 
+  it 'lets you enter and access multiple emails' do
+    test_contact =Contact.new('Ronald McDonald')
+    test_contact.add_emails(["a@a.com","b@b.com","c@c.com"])
+    test_contact.emails.should eq ["a@a.com","b@b.com","c@c.com"]
+  end
+
+  it 'lets you enter and access multiple mailing addresses' do
+    test_contact =Contact.new('Ronald McDonald')
+    test_contact.add_addresses(['a','b','c'])
+    test_contact.addresses.should eq ['a','b','c']
+  end
+
   describe '.names' do
     it 'is empty at first' do
       Contact.names.should eq []

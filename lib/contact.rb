@@ -36,6 +36,23 @@ class Contact
   def numbers
     @add_numbers.all
   end
+
+  def add_emails(emails)
+    @emails = Email.new(emails)
+  end
+
+  def emails
+    @emails.all
+  end
+
+  def add_addresses(addresses)
+    @addresses = Mail.new(addresses)
+  end
+
+  def addresses
+    @addresses.all
+  end
+
   def number
     @number
   end
