@@ -13,9 +13,23 @@ describe 'Contact' do
     test_contact.number.should eq '5031111111'
   end
 
-  it 'lets you add and access an email address' do
+  it 'lets you add and access an email address parameter' do
     test_contact = Contact.new('Ronald McDonald')
     test_contact.add_email('Ronald@McDonalds.com')
     test_contact.email.should eq 'Ronald@McDonalds.com'
   end
+
+  it 'lets you add and access a mailing address parameter' do
+    test_contact = Contact.new('Ronald McDonald')
+    test_contact.add_mailing('101 McDonald Street')
+    test_contact.mailing.should eq '101 McDonald Street'
+  end
+
+  describe '.names' do
+    it 'is empty at first' do
+      Contact.names.should eq []
+    end
+  end
+
 end
+

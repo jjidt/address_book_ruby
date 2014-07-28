@@ -1,4 +1,8 @@
 class Contact
+  @@names = []
+  def Contact.names
+    @@names
+  end
   def initialize (name)
     @name = name
   end
@@ -16,5 +20,11 @@ class Contact
   end
   def email
     @email
+  end
+  def add_mailing(address)
+    @address = address
+  end
+  def mailing
+    @address
   end
 end
