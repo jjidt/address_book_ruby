@@ -5,4 +5,10 @@ class Contact
   def name
     @name
   end
+  def add_number(number)
+    @number = number
+  end
+  def number
+    @number
+  end
 end
