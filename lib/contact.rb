@@ -11,4 +11,10 @@ class Contact
   def number
     @number
   end
+  def add_email(email)
+    @email = email
+  end
+  def email
+    @email
+  end
 end
