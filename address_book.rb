@@ -1,6 +1,7 @@
 require './lib/contact'
+
+system 'clear'
 def main_menu
-  system 'clear'
   puts "\n"
   puts "******************CONTACT LIST********************\n"
   puts "\nwhat would you like to do?\n\n enter N to add new contact
@@ -19,11 +20,16 @@ def main_menu
     new_contact.add_number(new_phone)
     new_contact.add_email(new_email)
     new_contact.add_mailing(new_mail)
+    system 'clear'
     main_menu
-  end
-
-  if main_choice == 'c'
-    puts Contact.names
+  elsif main_choice == 'c'
+    system 'clear'
+    Contact.all.each do |key,value|
+      puts "#{key} \n---------- \n phone: #{value.number} \n email: #{value.email} \n address: #{value.mailing}"
+    end
+  else
+    system 'clear'
+    main_menu
   end
 end
 main_menu
