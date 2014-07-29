@@ -8,13 +8,13 @@ def contact_menu
   puts "What are the phone numbers for #{new_name} ?"
   new_phone = gets.chomp.split(",")
   puts "What is the email address of #{new_name}?"
-  new_email = gets.chomp
+  new_email = gets.chomp.split(",")
   puts "What is the mailing address of #{new_name}?"
-  new_mail = gets.chomp
+  new_mail = gets.chomp.split(",")
   new_contact = Contact.new(new_name)
   new_contact.add_numbers(new_phone)
-  new_contact.add_email(new_email)
-  new_contact.add_mailing(new_mail)
+  new_contact.add_emails(new_email)
+  new_contact.add_addresses(new_mail)
   system 'clear'
   main_menu
 end
@@ -29,8 +29,8 @@ def contact_edit
   if Contact.all[inputted_contact]
     system 'clear'
     current_contact = Contact.all[inputted_contact]
-    puts "#{current_contact.name} \n ---------- \n phone: #{current_contact.numbers} \n email: #{current_contact.email} \n address: #{current_contact.mailing}"
-    puts "\nwhat would you like to do?\n\n enter M to return to main menu\n enter P to alter phone numbers\n"
+    puts "#{current_contact.name} \n ---------- \n phone: #{current_contact.numbers} \n email: #{current_contact.emails} \n address: #{current_contact.addresses}"
+    puts "\nwhat would you like to do?\n\n enter M to return to main menu\n enter P to alter phone numbers\n enter E to alter email addresses \n enter A to alter Mailing Addresses"
     user_types = gets.chomp.downcase
     if user_types == 'm'
       system 'clear'
@@ -50,6 +50,23 @@ def contact_edit
         puts "What number would you like to delete?"
         delete_number = gets.chomp.to_i
         current_contact.numbers.delete_at(delete_number)
+        contact_edit
+      end
+    elsif user_types == 'e'
+      current_contact.emails.each_with_index do |element, index|
+        puts "#{index}:  #{element}"
+      end
+      puts " enter A to add email \n enter D to delete email \n enter C to go back to contacts"
+      contact_choice = gets.chomp.downcase
+      if contact_choice == 'a'
+        puts "What email address would you like to add?"
+        input_number = gets.chomp.downcase
+        current_contact.emails.push(input_number)
+        contact_edit
+      elsif contact_choice == 'd'
+        puts "What number would you like to delete?"
+        delete_number = gets.chomp.to_i
+        current_contact.emails.delete_at(delete_number)
         contact_edit
       end
     end
